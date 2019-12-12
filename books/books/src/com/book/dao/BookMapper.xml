@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.book.dao.BookDao">
+	<select id="findByPage" resultType="Book">
+		select b.id,b.name,sort_id sortid ,author,buytime,s.name sortname from tb_books b,tb_sort s 
+		where b.sort_id = s.id
+		limit #{index},#{size}
+	</select>
+	
+	<select id="findTotalCount" resultType="int">
+		select count(1) from tb_books
+	</select>
+	
+	
+	<select id="findAllSort" resultType="Sort">
+	select * from tb_sort
+	
+	</select>
+	
+	<insert id="addBook" parameterType="Book">
+		insert into tb_books(name,sort_id,author,buytime)
+		values (#{name},#{sortid},#{author},#{buytime})
+	</insert>
+	
+	<delete id="delBook" parameterType="int">
+		delete from tb_books where id = #{id}
+	</delete>
+</mapper>
